@@ -23,6 +23,8 @@ set_target_properties(${PROJECT_NAME}
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED TRUE)
 
+install(TARGETS ${PROJECT_NAME})
+
 if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
   set_target_properties(${PROJECT_NAME}
     PROPERTIES

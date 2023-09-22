@@ -24,7 +24,7 @@ GVStdStringPair toStdString(GVStringRefPair gvStringRefPair)
 
 llvm::PreservedAnalyses jvs::StringReverser::run(llvm::Module& m, llvm::ModuleAnalysisManager& am)
 {
-  llvm::PreservedAnalyses results = llvm::PreservedAnalyses::all();
+  auto results = llvm::PreservedAnalyses::all();
   auto globalStrings = llvm::to_vector(llvm::map_range(am.getResult<StringAnalyzer>(m), toStdString));
   bool modified = !globalStrings.empty();
   while (!globalStrings.empty())
