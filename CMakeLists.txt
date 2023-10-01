@@ -8,8 +8,8 @@ else()
   set(debugEnable OFF)
 endif()
 
-option(ENABLE_TESTS "Enable tests" ${debugEnable})
 option(BUILD_UTILS "Build utilities" ${debugEnable})
+option(ENABLE_TESTS "Enable tests" ${debugEnable})
 
 # Find LLVM
 find_package(LLVM REQUIRED CONFIG)
@@ -35,14 +35,10 @@ separate_arguments(LLVM_DEFINITIONS_LIST NATIVE_COMMAND ${LLVM_DEFINITIONS})
 add_definitions(${LLVM_DEFINITIONS_LIST})
 
 if (APPLE)
-  link_libraries("$<$<PLATFORM_ID:Darwin>:-undefined deynamic_lookup>")
+  link_libraries("$<$<PLATFORM_ID:Darwin>:-undefined dynamic_lookup>")
 endif()
 
 add_subdirectory(lib)
 if (ENABLE_TESTS)
   add_subdirectory(test)
-endif()
-
-if (BUILD_UTILS)
-  #add_subdirectory(util)
 endif()

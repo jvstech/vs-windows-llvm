@@ -9,6 +9,7 @@
 #include <llvm/IR/Module.h>
 #include <llvm/IR/PassManager.h>
 #include <llvm/Pass.h>
+#include <llvm/Passes/OptimizationLevel.h>
 #include <llvm/Passes/PassBuilder.h>
 #include <llvm/Passes/PassPlugin.h>
 #include <llvm/Support/raw_ostream.h>
@@ -52,8 +53,9 @@ private:
 
   llvm::raw_ostream& os_;
 
-  static bool registerPass(llvm::StringRef name, llvm::ModulePassManager& mpm,
+  static bool registerPipelinePass(llvm::StringRef name, llvm::ModulePassManager& mpm,
     llvm::ArrayRef<llvm::PassBuilder::PipelineElement> /*ignored*/);
+  static bool registerEPPass(llvm::ModulePassManager& mpm, llvm::OptimizationLevel opt);
 };
 
 }  // namespace jvs

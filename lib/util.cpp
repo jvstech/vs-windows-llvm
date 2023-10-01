@@ -13,6 +13,7 @@ std::string writeToStream(const StreamWriterT& writer)
   std::string result;
   llvm::raw_string_ostream os(result);
   writer(os);
+  // .str() flushes the stream automatically and returns a reference to the underlying std::string.
   return os.str();
 }
 

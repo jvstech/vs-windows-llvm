@@ -5,9 +5,14 @@
 
 void jvs::RegisterPluginPasses(llvm::PassBuilder& passBuilder)
 {
+  // opt tool registration
   passBuilder.registerAnalysisRegistrationCallback(jvs::StringAnalyzer::registerAnalysis);
-  passBuilder.registerPipelineParsingCallback(jvs::StringAnalyzerPrinter::registerPass);
-  passBuilder.registerPipelineParsingCallback(jvs::StringReverser::registerPass);
+  passBuilder.registerPipelineParsingCallback(jvs::StringAnalyzerPrinter::registerPipelinePass);
+  passBuilder.registerPipelineParsingCallback(jvs::StringReverser::registerPipelinePass);
+  // Default optimization level registration
+  passBuilder.registerOptimizerEarlyEPCallback(jvs::StringAnalyzerPrinter::registerEPPass);
+  passBuilder.registerOptimizerEarlyEPCallback(jvs::StringReverser::registerEPPass);
+  passBuilder.registerOptimizerEarlyEPCallback(jvs::StringAnalyzerPrinter::registerEPPass);
 }
 
 auto llvmGetPassPluginInfo()

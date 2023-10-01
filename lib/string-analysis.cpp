@@ -91,8 +91,8 @@ llvm::PreservedAnalyses jvs::StringAnalyzerPrinter::run(
   return llvm::PreservedAnalyses::all();
 }
 
-bool jvs::StringAnalyzerPrinter::registerPass(llvm::StringRef name, llvm::ModulePassManager& mpm,
-  llvm::ArrayRef<llvm::PassBuilder::PipelineElement> /*unused*/)
+bool jvs::StringAnalyzerPrinter::registerPipelinePass(llvm::StringRef name,
+  llvm::ModulePassManager& mpm, llvm::ArrayRef<llvm::PassBuilder::PipelineElement> /*unused*/)
 {
   if (name.consume_front("print") &&
     (name.consume_front("<" DEBUG_TYPE ">") || name.consume_front("[" DEBUG_TYPE "]")))
@@ -102,4 +102,11 @@ bool jvs::StringAnalyzerPrinter::registerPass(llvm::StringRef name, llvm::Module
   }
   
   return false;
+}
+
+bool jvs::StringAnalyzerPrinter::registerEPPass(
+  llvm::ModulePassManager& mpm, llvm::OptimizationLevel opt)
+{
+  mpm.addPass(StringAnalyzerPrinter(llvm::outs()));
+  return true;
 }

@@ -15,7 +15,7 @@ add_library(${PROJECT_NAME} SHARED
   string-reverser.cpp
   util.cpp)
 
-llvm_map_components_to_libnames(llvmLibs Support Passes Core)
+llvm_map_components_to_libnames(llvmLibs Core Passes Support)
 target_link_libraries(${PROJECT_NAME} PUBLIC ${llvmLibs})
 
 set_target_properties(${PROJECT_NAME}
